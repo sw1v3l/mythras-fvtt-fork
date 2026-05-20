@@ -13,6 +13,14 @@
   "author": "John Doe",
   "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sw1v3l/mythras-fvtt-fork.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sw1v3l/mythras-fvtt-fork/issues"
+  },
+  "homepage": "https://github.com/sw1v3l/mythras-fvtt-fork#readme",
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
     "@types/glob": "^7.2.0",
