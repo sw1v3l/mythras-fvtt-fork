@@ -1,6 +1,8 @@
 # Foundry VTT Mythras
 
-An implementation of the Mythras game system (http://thedesignmechanism.com) for Foundry Virtual Tabletop (http://foundryvtt.com).
+A forked implementation of the Mythras game system (http://thedesignmechanism.com) for Foundry Virtual Tabletop (http://foundryvtt.com).
+
+Original can be found at https://gitlab.com/kp-systems/mythras.
 
 ## Installation
 
