@@ -119,17 +119,29 @@ export class EncounterGeneratorActorBuilder {
       skollEnemy.skills.forEach((skill: any) => {
         let skillName = Object.keys(skill)[0]
         let skillNameLower = skillName.toLocaleLowerCase()
+        let baseSkillName = skillName.split(/[(:]/)[0].trim()
+        let baseSkillNameLower = baseSkillName.toLocaleLowerCase()
         let skillType = ''
         let skillData: any = {}
+
         if (standardSkills[skillNameLower]) {
           skillType = 'standardSkill'
-          skillData = standardSkills[skillNameLower]
+          skillData = JSON.parse(JSON.stringify(standardSkills[skillNameLower]))
+        } else if (standardSkills[baseSkillNameLower]) {
+          skillType = 'standardSkill'
+          skillData = JSON.parse(JSON.stringify(standardSkills[baseSkillNameLower]))
         } else if (magicSkills.includes(skillName)) {
           skillType = 'magicSkill'
-          skillData = professionalSkills[skillNameLower]
+          skillData = JSON.parse(JSON.stringify(professionalSkills[skillNameLower]))
+        } else if (magicSkills.includes(baseSkillName)) {
+          skillType = 'magicSkill'
+          skillData = JSON.parse(JSON.stringify(professionalSkills[baseSkillNameLower]))
         } else if (professionalSkills[skillNameLower]) {
           skillType = 'professionalSkill'
-          skillData = professionalSkills[skillNameLower]
+          skillData = JSON.parse(JSON.stringify(professionalSkills[skillNameLower]))
+        } else if (professionalSkills[baseSkillNameLower]) {
+          skillType = 'professionalSkill'
+          skillData = JSON.parse(JSON.stringify(professionalSkills[baseSkillNameLower]))
         }
 
         if (skillType !== '' && skillType !== 'passion') {
