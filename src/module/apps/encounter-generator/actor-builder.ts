@@ -121,29 +121,26 @@ export class EncounterGeneratorActorBuilder {
         let skillNameLower = skillName.toLocaleLowerCase()
         let skillType = ''
         let skillData: any = {}
-        let primaryChar = 11
-        if (actorData.characteristics[skillData.primaryChar] !== undefined) {
-          primaryChar = actorData.characteristics[skillData.primaryChar].value
-        }
-        let secondaryChar = 11
-        if (actorData.characteristics[skillData.secondaryChar] !== undefined) {
-          secondaryChar = actorData.characteristics[skillData.secondaryChar].value
-        }
         if (standardSkills[skillNameLower]) {
           skillType = 'standardSkill'
           skillData = standardSkills[skillNameLower]
-          let baseScore = primaryChar + secondaryChar
-          let trainingScore = skill[skillName] - baseScore
-          skillData.trainingVal = trainingScore
         } else if (magicSkills.includes(skillName)) {
           skillType = 'magicSkill'
           skillData = professionalSkills[skillNameLower]
-          let baseScore = primaryChar + secondaryChar
-          let trainingScore = skill[skillName] - baseScore
-          skillData.trainingVal = trainingScore
         } else if (professionalSkills[skillNameLower]) {
           skillType = 'professionalSkill'
           skillData = professionalSkills[skillNameLower]
+        }
+
+        if (skillType !== '' && skillType !== 'passion') {
+          let primaryChar = 11
+          if (actorData.characteristics[skillData.primaryChar] !== undefined) {
+            primaryChar = actorData.characteristics[skillData.primaryChar].value
+          }
+          let secondaryChar = 11
+          if (actorData.characteristics[skillData.secondaryChar] !== undefined) {
+            secondaryChar = actorData.characteristics[skillData.secondaryChar].value
+          }
           let baseScore = primaryChar + secondaryChar
           let trainingScore = skill[skillName] - baseScore
           skillData.trainingVal = trainingScore
@@ -151,6 +148,8 @@ export class EncounterGeneratorActorBuilder {
           let oldSkillName = skillName
           skillName = skillName.split(':')[1].trim()
           skillType = 'passion'
+          let primaryChar = actorData.characteristics['int']?.value ?? 11
+          let secondaryChar = actorData.characteristics['int']?.value ?? 11
           let baseScore = primaryChar + secondaryChar
           let trainingScore = skill[oldSkillName] - baseScore
           skillData = {
