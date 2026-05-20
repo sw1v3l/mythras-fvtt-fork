@@ -2,29 +2,24 @@ const yargs = require('yargs')
 const fs = require('fs')
 
 const argv = yargs
-  .option('versiontag', {
+  .version(false)
+  .option('systemVersion', {
     type: 'string',
-    description: 'specifies the version tag (CI_COMMIT_TAG)'
+    description: 'specifies the version tag'
   })
-  .option('jobid', {
+  .option('repository', {
     type: 'string',
-    description:
-      'specifies the gitlab job id (CI_JOB_ID). Used to link back to job artifacts'
+    description: 'The GitHub repository (e.g., owner/repo)'
   })
-  .option('gitlabpath', {
-    type: 'string',
-    description:
-      'The path on gitlab where this branch is stored (CI_PROJECT_PATH)'
-  })
-  .demandOption(['gitlabpath', 'versiontag', 'jobid']).argv
+  .demandOption(['repository', 'systemVersion']).argv
 
 const systemRaw = fs.readFileSync('system.json')
 let system = JSON.parse(systemRaw)
 
-system.version = `${argv.versiontag}`
-system.url = `https://gitlab.com/${argv.gitlabpath}`
-system.manifest = `https://gitlab.com/${argv.gitlabpath}/-/jobs/${argv.jobid}/artifacts/raw/system.json`
-system.download = `https://gitlab.com/${argv.gitlabpath}/-/jobs/${argv.jobid}/artifacts/raw/mythras.zip`
+system.version = argv.systemVersion
+system.url = `https://github.com/${argv.repository}`
+system.manifest = `https://github.com/${argv.repository}/releases/latest/download/system.json`
+system.download = `https://github.com/${argv.repository}/releases/download/${argv.systemVersion}/mythras.zip`
 
 fs.writeFileSync('system.json', JSON.stringify(system, null, 2))
 
