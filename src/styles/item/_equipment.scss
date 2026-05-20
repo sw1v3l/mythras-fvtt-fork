@@ -1,0 +1,82 @@
+.equipment-sheet {
+  .header-flex {
+    justify-content: flex-start;
+  }
+  .equipment-core {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-bottom: 1em;
+    .equip-core-section {
+      display: flex;
+      flex-direction: row;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+    .core-info {
+      font-size: 1em;
+    }
+    input {
+      & {
+        text-align: center;
+        width: 40px;
+        height: 20px;
+      }
+
+      &[type="number"] {
+        -webkit-appearance: auto; /* For Chrome, Safari, and Edge */
+        appearance: auto;
+        width: 60px;
+        padding-left: 15px;
+      }
+
+      &[type="number"]::-webkit-inner-spin-button,
+      &[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: auto; /* For WebKit browsers */
+        margin: 0;
+      }
+    }
+  }
+  .weapon-core {
+    display: flex;
+    flex-direction: row;
+    flex-direction: column;
+    justify-content: space-between;
+    .weapon-core-section {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      .weapon-piece {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        input {
+          text-align: center;
+        }
+        .range-info {
+          display: flex;
+          flex-direction: row;
+          input {
+            width: 40px;
+          }
+          .range-piece {
+            font-size: 0.8em;
+          }
+        }
+      }
+    }
+    .core-info {
+      font-size: 1em;
+    }
+  }
+  .equip-section {
+    border-bottom: solid 1px rgb(192, 192, 192);
+
+    padding: 15px 5px;
+    flex: 0;
+  }
+}

@@ -1,0 +1,44 @@
+@use 'colors';
+nav.sheet-tabs {
+  font-family: 'Suravaram';
+  font-size: 1.2em;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid colors.$sheet-gray;
+  border-top: 1px solid colors.$sheet-gray;
+  flex: 0 0 30px;
+
+  .item.active {
+    text-shadow: unset;
+  }
+
+  a:hover {
+    text-shadow: none;
+  }
+
+  .dividing-diamond {
+    width: 7px;
+    height: 7px;
+    border: 0;
+    flex: 0;
+  }
+
+  .active {
+    text-shadow: none;
+  }
+
+  a:after {
+    display: block;
+    content: '';
+    border-bottom: solid 1px #333;
+    transform: scaleX(0);
+    transition: transform 150ms ease-in-out;
+  }
+  a:hover:after {
+    transform: scaleX(1);
+  }
+  a.active:after {
+    transform: scaleX(1);
+  }
+}

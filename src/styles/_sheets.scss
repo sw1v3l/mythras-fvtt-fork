@@ -1,0 +1,98 @@
+@use 'colors' as *;
+.mythras {
+  .window-content {
+    padding: 0px;
+    overflow-x: scroll;
+  }
+
+  .char-sheet {
+    min-width: 700px;
+  }
+
+  .mythras-symbols {
+    height: 38px;
+    font-family: 'Mythras';
+    font-size: 2em;
+    flex: 0 0 38px;
+    overflow: hidden;
+    word-wrap: break-word;
+    padding: 5px;
+  }
+
+  .tab-header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: auto !important;
+    h2 {
+      text-decoration: none;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    background: #eeeeee;
+    width: 8px;
+    border-radius: 0px;
+    border: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border: none;
+    background: $sheet-scrollbar-color;
+    border-radius: 0px;
+  }
+
+  .increased {
+    color: $sheet-positive;
+  }
+
+  .decreased {
+    color: $sheet-negative;
+  }
+
+  .flex-table-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    border: 0 !important;
+    padding: 0 !important;
+    > .tables-left,
+    .tables-right {
+      width: 49.5%;
+      .add-items-button {
+        float: right;
+        margin-right: 8px;
+        font-size: 1.2em;
+      }
+      > div {
+        border: solid rgba(0, 0, 0, 0.2) 1px;
+        padding: 5px;
+        table {
+          background: none;
+          border: none;
+        }
+
+        th {
+          text-align: left;
+        }
+
+        thead {
+          background: none;
+          color: black;
+          text-shadow: none;
+        }
+
+        .delete-column {
+          width: 20px;
+        }
+      }
+    }
+  }
+  section.sheet-body {
+    padding: 10px;
+  }
+
+  .fumbled-notifier {
+    font-weight: bold
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es6",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": ".",
+    "paths": {
+      "@module": ["src/module"],
+      "@module/*": ["src/module/*"],
+      "@apps": ["src/module/apps"],
+      "@apps/*": ["src/module/apps/*"],
+      "@actor": ["src/module/actor"],
+      "@actor/*": ["src/module/actor/*"],
+      "@item": ["src/module/item"],
+      "@item/*": ["src/module/item/*"],
+      "@combat": ["src/module/combat"],
+      "@combat/*": ["src/module/combat/*"],
+      "@scripts/*": ["src/scripts/*"],
+      "@util": ["src/util"],
+      "@util/*": ["src/util/*"]
+    },
+    "types": ["jquery", "handlebars", "webpack-env"]
+  }
+}

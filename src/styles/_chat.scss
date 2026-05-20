@@ -1,0 +1,81 @@
+@use 'colors';
+.mythras {
+  /* Tooltip container */
+  .tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+  }
+
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 150px;
+    background-color: rgba($color: black, $alpha: 0.75);
+    color: white;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+
+    top: -40px;
+    left: 105%;
+
+    position: absolute;
+    z-index: 1;
+  }
+
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+  .text-red {
+    color: red;
+  }
+
+  .text-darkred {
+    color: darkred;
+  }
+
+  .text-goldenrod {
+    color: goldenrod;
+  }
+
+  .text-green {
+    color: green;
+  }
+
+  .flavor-text {
+    flex: 0 0 100%;
+    font-size: var(--font-size-12);
+  }
+
+  .content-link {
+    line-height: 200%;
+  }
+
+  .roll-result-table tbody {
+    overflow: auto;
+    word-break: normal;
+    border-collapse: collapse;
+  }
+
+  .roll-result-table td, th{
+    padding: 2px;
+  }
+
+  .contested-roll-results {
+    background: rgb(225 209 144 / 25%);
+    border: 2px solid #6f6c66;
+    border-radius: 5px;
+    padding: 5px;
+    a.content-link {
+      display: inline-grid;
+      grid-template-columns: min-content auto;
+      column-gap: 0.1em;
+      /* Adjust this gap to be as small as you need */
+      align-items: center;
+      white-space: normal;
+    }
+  }
+}

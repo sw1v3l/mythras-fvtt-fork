@@ -1,0 +1,114 @@
+@use 'colors' as *;
+div.abilities {
+  height: calc(100% - 25px);
+  margin: 0;
+  .ability-desc-container {
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .spell-list-container {
+    border-left: solid 1px rgba(0, 0, 0, 0.2);
+    height: 100%;
+    width: 100%;
+    padding: 0 10px;
+    h3 {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+  }
+
+  .spell-list-table {
+    width: 100%;
+    text-align: left;
+    th {
+      border: none;
+      background: none;
+    }
+    thead {
+      background: none;
+      text-shadow: none;
+      color: black;
+      border-bottom: 1px solid black;
+    }
+    .item-img {
+      background-color: rgba(0, 0, 0, 0.4);
+      height: 20px;
+      width: 20px;
+    }
+    .item-profile {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5px;
+    }
+    .item {
+      display: none;
+    }
+    .active {
+      display: table-row;
+    }
+  }
+
+  .abilities-sections {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border: 0;
+    height: 100%;
+
+    h2 {
+      border: 0;
+    }
+
+    > .section-large {
+      flex: 1;
+    }
+
+    > .section {
+      width: 100%;
+      margin-bottom: 10px;
+
+      .flex-table-container {
+        height: 100%;
+        flex: 1;
+        .tables-left {
+          padding-right: 5px;
+          max-width: 400px;
+          height: 100%;
+        }
+        .tables-right {
+          padding-left: 5px;
+          flex: 1;
+          height: 100%;
+        }
+      }
+
+      .other-abilities {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        .editor {
+          flex: 1;
+          height: 100%;
+          width: 100%;
+          div.prosemirror-editor {
+            height: 100% !important;
+          }
+        }
+      }
+    }
+  }
+  #spellFilter {
+    border: none;
+    font-size: var(--font-size-14);
+  }
+  #spellFilter:focus {
+    box-shadow: none;
+  }
+}

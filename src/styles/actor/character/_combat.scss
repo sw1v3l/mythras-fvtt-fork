@@ -1,0 +1,240 @@
+@use 'colors' as *;
+div.combat {
+  .table-header-icon {
+    border: none;
+    height: 18px;
+    filter: invert(90%);
+  }
+  .combat-tables {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    .armorLocationHeader {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }    
+    .item-img {
+      background-color: rgba(0, 0, 0, 0.4);
+      height: 20px;
+      width: 20px;
+    }
+    .item-profile {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 5px;
+    }
+    tbody {      
+      tr {
+        &:nth-child(odd) {
+          background-color: #eaeaea;
+        }
+        &:hover {
+          background-color: #840107;
+          color: #fff;
+          
+          input {
+            color: #fff;
+          }
+          select {
+            color: #fff;
+  
+            option {
+              background-color: #840107;
+            }
+  
+          }
+        }
+        select {
+          border: none;
+          border-radius: 0;
+        }
+      }
+    }
+    h2 {
+      border: 0;
+    }
+    > div {
+      width: 100%;
+      margin-bottom: 20px;
+      border: solid rgba(0, 0, 0, 0.2) 1px;
+      padding: 5px;
+      
+      .add-skills-button {
+        float: right;
+        margin-right: 8px;
+        font-size: 1.2em;
+      }
+
+      .add-equipment-button {
+        float: right;
+        margin-right: 8px;
+        font-size: 1.2em;
+      }
+
+      h3 {
+        margin-bottom: 0px;
+        color: $sheet-crimson;
+      }
+
+      table {
+        margin: 0;
+        background: none;
+        border: none;
+
+        .hitLoc-flex-cell {
+          display: flex;
+          justify-content: center;
+          flex-direction: row;
+          input {
+            width: 25px;
+            text-align: center;
+          }
+        }
+      }
+
+      th {
+        text-align: left;
+      }
+
+      thead {
+        background: none;
+        color: black;
+        text-shadow: none;
+      }
+
+      .delete-column {
+        width: 20px;
+      }
+    }
+    .top-combat-tables {
+      margin-bottom: 0px;
+      input,
+      textarea {
+        border-radius: 0;
+        border: none;
+        background-color: rgba(0, 0, 0, 0.05);
+      }
+
+      input:focus,
+      textarea:focus {
+        border: none;
+        outline: none;
+        outline-style: none;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      input:hover,
+      textarea:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      .max-hp {
+        margin: 0;
+        margin-left: 3px;
+        display: flex;
+        align-items: center;
+      }
+      .max-hp-mod {
+        display: flex;
+        align-items: center;
+        margin-left: 5px;
+        width: 30px;
+        input {
+          font-size: 0.7em;
+          height: 15px;
+          width: 15px;
+          margin: 0;
+          margin-top: 2px;
+          text-align: left;
+        }
+      }
+
+      .hit-loc-text {
+        margin: 0px 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      border: 0;
+      padding: 0;
+      > div {
+        .roll-hitlocations-button {
+          float: right;
+          margin-right: 8px;
+        }
+        > div {
+          border: solid rgba(0, 0, 0, 0.2) 1px;
+          padding: 5px;
+          table {
+            background: none;
+            border: none;
+          }
+
+          th {
+            text-align: center;
+          }
+          thead {
+            background: none;
+            color: black;
+            text-shadow: none;
+          }
+
+          .hitloc-location-cell {
+            text-align: left;
+            width: 120px;
+          }
+
+          .hitloc-hp-cell {
+            width: 100px;
+          }
+          // .hitloc-ap-cell {
+          //   // display: flex;
+          //   // flex-direction: row;
+          // }
+          .hitloc-apbonus-cell {
+            display: flex;
+            width: 30px;
+          }
+          .hitloc-range-cell {
+            width: 80px;
+          }
+          .hitloc-naturalArmor-cell {
+            text-align: center;
+            width: 80px;
+
+            input {
+              width: 40px;
+            }
+          }
+          .delete-column {
+            width: 20px;
+          }
+        }
+      }
+      > div.tables-left {
+        margin-bottom: 8px;
+        width: 69%;
+      }
+      > div.tables-right {
+        width: 30%;
+        > div {
+          margin-bottom: 8px;
+          textarea {
+            font-family: 'Amethysta';
+            height: 62px;
+          }
+        }
+      }
+    }
+  }
+}

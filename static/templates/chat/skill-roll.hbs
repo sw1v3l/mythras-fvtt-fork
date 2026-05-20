@@ -1,0 +1,53 @@
+<div class="mythras">
+  <div class="tooltip">{{ localize 'MYTHRAS.Roll_Modifiers'}}
+    <span class="tooltiptext">
+      {{#each modifiers}}
+      <strong>{{ this.name }}:</strong><br /> {{ this.value }}
+      {{#unless @last }}
+      <br />
+      {{/unless}}
+      {{else}}
+      {{ localize 'MYTHRAS.No_Penalties'}}
+      {{/each}}
+    </span>
+  </div>
+  <table class="roll-result-table">
+    <tr>
+      <th>{{ localize 'MYTHRAS.Difficulty'}}</th>
+      <th>{{ localize 'MYTHRAS.Roll'}}</th>
+      <th></th>
+      <th>{{ localize 'MYTHRAS.Skill'}}</th>
+      <th>{{ localize 'MYTHRAS.Result'}}</th>
+    </tr>
+    {{#each rollResults}}
+    <tr class="roll-result"
+      data-roll-difficulty-name="{{this.difficultyName}}"
+      data-roll-difficulty-grade="{{this.difficultyGrade}}"
+      data-roll-difficulty="{{this.difficulty}}"
+      data-roll-value="{{this.rollValue}}"
+      data-roll-result="{{this.description}}"
+    >
+      <td><b>{{ localize this.difficultyName }} </b></td>
+      <td>[[{{ this.rollValue }}]]</td>
+      <td> ≤ </td>
+      <td>[[{{ this.difficultyGrade }}]]</td>
+      <td><span class="{{ this.descriptionClass }}"> <b>{{ localize this.description }}</b></span></td>
+    </tr>
+    {{/each}}
+  </table>
+
+  {{!-- If the user has a token selected, show a contested‐roll button --}}
+  {{#if isRollWithOptions}}
+  <div class="chat-buttons">
+    <button 
+      type="button" 
+      class="btn btn-primary btn-contested-roll"
+      data-roll-actor-id="{{actorId}}"
+      data-roll-skill-id="{{skillId}}"
+      data-roll-augmentation="{{augmentationDescription}}"
+    >
+      {{localize "MYTHRAS.Contest_Roll"}}
+    </button>
+  </div>
+  {{/if}}
+</div>

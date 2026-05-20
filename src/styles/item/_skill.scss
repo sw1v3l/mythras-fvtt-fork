@@ -1,0 +1,73 @@
+.skill-sheet {
+  .upper-flex {
+    flex: 0;
+    display: flex;
+    justify-content: space-between;
+    .skill-section {
+      label {
+        p {
+          font-size: 0.7em;
+          margin: 0;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+      .improvements-flex {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: flex-end;
+        input {
+          width: 50px;
+          margin-bottom: 8px;
+          border-radius: 0;
+          border-bottom: solid rgba(0, 0, 0, 0.5) 1px;
+          background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        input:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+      .combat-flex {
+        flex: 0;
+        input:hover {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+        input:focus {
+          background-color: rgba(0, 0, 0, 0.1);
+        }
+      }
+
+      .other-flex {
+        display: flex;
+        justify-content: space-around;
+        input {
+          width: 15px;
+          height: 15px;
+        }
+        div {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    }
+  }
+
+  .skill-section {
+    margin-bottom: 10px;
+    border: solid rgba(0, 0, 0, 0.2) 1px;
+    padding: 5px;
+  }
+
+  .skill-section-left {
+    width: 290px;
+    margin-right: 5px;
+  }
+  .skill-section-right {
+    width: 75px;
+    margin-left: 5px;
+  }
+}
