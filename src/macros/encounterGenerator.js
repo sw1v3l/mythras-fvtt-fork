@@ -143,7 +143,7 @@ async function createActor(skollEnemy, folder) {
       .getDocuments()
       .then((result) => {
         result.forEach((skill, index) => {
-          standardSkills[skill.data.name.toLocaleLowerCase()] = skill.data.data
+          standardSkills[skill.name.toLocaleLowerCase()] = skill.system
         })
       })
   )
@@ -155,7 +155,7 @@ async function createActor(skollEnemy, folder) {
       .getDocuments()
       .then((result) => {
         result.forEach((skill, index) => {
-          professionalSkills[skill.data.name.toLocaleLowerCase()] = skill.data.data
+          professionalSkills[skill.name.toLocaleLowerCase()] = skill.system
         })
       })
   )
@@ -215,14 +215,14 @@ async function createActor(skollEnemy, folder) {
         actorItems.push({
           name: name,
           type: type,
-          data: weaponData
+          system: weaponData
         })
       })
       skillData.weapons = weaponNames.join(', ')
       actorItems.push({
         name: skillName,
         type: skillType,
-        data: skillData
+        system: skillData
       })
     })
   })
@@ -231,17 +231,29 @@ async function createActor(skollEnemy, folder) {
     skollEnemy.skills.forEach((skill) => {
       let skillName = Object.keys(skill)[0]
       let skillNameLower = skillName.toLocaleLowerCase()
+      let baseSkillName = skillName.split(/[(:]/)[0].trim()
+      let baseSkillNameLower = baseSkillName.toLocaleLowerCase()
       let skillType = ''
       let skillData = {}
+
       if (standardSkills[skillNameLower]) {
         skillType = 'standardSkill'
-        skillData = standardSkills[skillNameLower]
+        skillData = JSON.parse(JSON.stringify(standardSkills[skillNameLower]))
+      } else if (standardSkills[baseSkillNameLower]) {
+        skillType = 'standardSkill'
+        skillData = JSON.parse(JSON.stringify(standardSkills[baseSkillNameLower]))
       } else if (magicSkills.includes(skillName)) {
         skillType = 'magicSkill'
-        skillData = professionalSkills[skillNameLower]
+        skillData = JSON.parse(JSON.stringify(professionalSkills[skillNameLower]))
+      } else if (magicSkills.includes(baseSkillName)) {
+        skillType = 'magicSkill'
+        skillData = JSON.parse(JSON.stringify(professionalSkills[baseSkillNameLower]))
       } else if (professionalSkills[skillNameLower]) {
         skillType = 'professionalSkill'
-        skillData = professionalSkills[skillNameLower]
+        skillData = JSON.parse(JSON.stringify(professionalSkills[skillNameLower]))
+      } else if (professionalSkills[baseSkillNameLower]) {
+        skillType = 'professionalSkill'
+        skillData = JSON.parse(JSON.stringify(professionalSkills[baseSkillNameLower]))
       }
 
       if (skillType !== '' && skillType !== 'passion') {
@@ -292,7 +304,7 @@ async function createActor(skollEnemy, folder) {
       actorItems.push({
         name: skillName,
         type: skillType,
-        data: skillData
+        system: skillData
       })
     })
   })
@@ -331,7 +343,7 @@ async function createActor(skollEnemy, folder) {
       actorItems.push({
         name: name,
         type: type,
-        data: data
+          system: data
       })
     })
   })
@@ -425,7 +437,7 @@ async function createActor(skollEnemy, folder) {
     Actor.create({
       name: skollEnemy.name,
       type: 'character',
-      data: actorData,
+      system: actorData,
       items: actorItems,
       folder: folder
     }).then((actor) => {
@@ -442,7 +454,7 @@ async function createActor(skollEnemy, folder) {
       }
       if (mod !== 0) {
         actor.update({
-          ['data.attributes.initiativeBonus.mod']: Number(mod)
+          ['system.attributes.initiativeBonus.mod']: Number(mod)
         })
       }
     })
