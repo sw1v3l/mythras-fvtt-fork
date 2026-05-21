@@ -8,6 +8,8 @@ import { ItemMythras, ItemProxyMythras } from '@item/base'
 import { SetGameMythras } from '@scripts/set-game-mythras'
 import { ActorSheetClassRegistry } from "@actor/ActorSheetClassRegistry";
 import { ItemSheetClassRegistry } from "@item/ItemSheetClassRegistry";
+import { SceneMythras } from '@module/scene/document';
+import { TokenDocumentMythras } from '@module/scene/token-document/document';
 
 export const Init = {
   listen: (): void => {
@@ -19,6 +21,8 @@ export const Init = {
       ActorSheetClassRegistry.registerSheetClasses()
       CONFIG.Item.documentClass = ItemProxyMythras
       ItemSheetClassRegistry.registerSheetClasses()
+      CONFIG.Scene.documentClass = SceneMythras
+      CONFIG.Token.documentClass = TokenDocumentMythras
       CONFIG.Combat.documentClass = CombatMythras
       CONFIG.ui.combat = MythrasCombatTracker as any
       //TODO: Figure out how to use the active effects class for further Mythras customization
