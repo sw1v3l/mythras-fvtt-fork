@@ -171,6 +171,40 @@ async function createActor(skollEnemy, folder) {
         mod: 0
       }
     })
+
+    // Profile and other attributes
+    if (skollEnemy.profile) {
+      actorData.career = skollEnemy.profile.career || ''
+      actorData.homeland = skollEnemy.profile.homeland || ''
+      actorData.socialClass = skollEnemy.profile.social_class || ''
+      actorData.gender = skollEnemy.profile.gender || ''
+      actorData.age = skollEnemy.profile.age || ''
+      actorData.handedness = skollEnemy.profile.handedness || ''
+      actorData.frame = skollEnemy.profile.frame || ''
+      actorData.height = skollEnemy.profile.height || ''
+      actorData.weight = skollEnemy.profile.weight || ''
+      actorData.raceCulture = skollEnemy.profile.culture || ''
+      actorData['cult information'] = skollEnemy.profile.cult_rank || ''
+    }
+
+    if (skollEnemy.notes_extra) {
+      if (skollEnemy.notes_extra.cult) {
+        if (actorData['cult information']) actorData['cult information'] += '\n'
+        actorData['cult information'] += skollEnemy.notes_extra.cult
+      }
+      actorData.conditionsAndWounds = skollEnemy.notes_extra.wounds || ''
+    }
+
+    if (skollEnemy.movement) {
+      actorData.attributes = actorData.attributes || {}
+      actorData.attributes.movement = { walk: Number(skollEnemy.movement), mod: 0 }
+    }
+
+    if (skollEnemy.max_magic_points) {
+      actorData.attributes = actorData.attributes || {}
+      actorData.attributes.magicPoints = { value: Number(skollEnemy.max_magic_points), mod: 0 }
+      actorData.currentMagicPoints = Number(skollEnemy.max_magic_points)
+    }
   })
   // Combat Styles and Weapons
   promiseChain.then(() => {
@@ -310,6 +344,7 @@ async function createActor(skollEnemy, folder) {
   })
   // Hit Locations
   promiseChain.then(() => {
+    let armors = {}
     skollEnemy.hit_locations.forEach((hitLocation) => {
       let type = 'hitLocation'
 
@@ -335,15 +370,37 @@ async function createActor(skollEnemy, folder) {
         rollRangeStart: rollRangeStart,
         rollRangeEnd: rollRangeEnd,
         baseHp: baseHp,
-        naturalArmor: hitLocation.ap,
+        naturalArmor: 0,
         maxHp: 0,
         currentHp: currentHp
+      }
+
+      if (hitLocation.armor && hitLocation.armor !== '') {
+        if (!armors[hitLocation.armor]) {
+          armors[hitLocation.armor] = { ap: hitLocation.ap, locations: [] }
+        }
+        armors[hitLocation.armor].locations.push(name)
+      } else if (hitLocation.ap > 0) {
+        data.naturalArmor = hitLocation.ap
       }
 
       actorItems.push({
         name: name,
         type: type,
-          system: data
+        system: data
+      })
+    })
+
+    // Create armor items
+    Object.entries(armors).forEach(([armorName, armorData]) => {
+      actorItems.push({
+        name: armorName,
+        type: 'armor',
+        system: {
+          ap: armorData.ap,
+          locationName: armorData.locations,
+          equipped: true
+        }
       })
     })
   })
@@ -376,6 +433,16 @@ async function createActor(skollEnemy, folder) {
       featuresList.push('<h2>Sorcery</h2>')
       featuresList = featuresList.concat(skollEnemy['sorcery_spells'])
     }
+      if (skollEnemy.magic && skollEnemy.magic.notes) {
+        featuresList.push('<br>')
+        featuresList.push('<h2>Magic Notes</h2>')
+        featuresList.push(skollEnemy.magic.notes)
+      }
+      if (skollEnemy.notes_extra && skollEnemy.notes_extra.general) {
+        featuresList.push('<br>')
+        featuresList.push('<h2>General Notes</h2>')
+        featuresList.push(skollEnemy.notes_extra.general)
+      }
     if (skollEnemy['spirits'].length > 0) {
       featuresList.push('<br>')
       featuresList.push('<h2>Animism</h2>')
@@ -428,6 +495,20 @@ async function createActor(skollEnemy, folder) {
     abilities += featuresList.join('<br>')
     actorData.abilitiesDesc = abilities
     actorData.journal = skollEnemy.notes
+
+    if (skollEnemy.equipment && skollEnemy.equipment.length > 0) {
+      skollEnemy.equipment.forEach((item) => {
+        actorItems.push({
+          name: item.name,
+          type: 'equipment',
+          system: {
+            description: item.notes || '',
+            quantity: item.quantity || 1,
+            encumbrance: item.enc || 0
+          }
+        })
+      })
+    }
   })
   // Add additional promises to the chain here for weapons and other stuff
   // (adding to the chain is not strictly necessary but helpful for organization. Also guarantees the order things will be run)

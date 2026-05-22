@@ -69,7 +69,9 @@ class ArmorMythras<TParent extends ActorMythras | null = ActorMythras  | null> e
     let availableHitLocations: HitLocationMythras[] = this.availableHitLocations
     //Do we need to set this here? It should be set in the item as created
     //if it is not set, it is blank
-    systemData.locationName = [availableHitLocations[0].name]//why??
+    if (!systemData.locationName || systemData.locationName.length === 0) {
+      systemData.locationName = [availableHitLocations[0].name]
+    }
     if (systemData.location?.includes('Unequipped') && systemData.locationName.length > 0) {
       let hitlocID = availableHitLocations.filter(function (value: Item) {
         return systemData.locationName.includes(value.name)//modified to return all hit locations
