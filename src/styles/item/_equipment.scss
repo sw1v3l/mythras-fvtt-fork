@@ -54,6 +54,10 @@
         display: flex;
         align-items: center;
         flex-direction: column;
+        select[multiple] {
+          min-height: 100px;
+          width: 100%;
+        }
         input {
           text-align: center;
         }

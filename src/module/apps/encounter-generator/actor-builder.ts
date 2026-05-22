@@ -232,7 +232,7 @@ export class EncounterGeneratorActorBuilder {
     })
     // Hit Locations
     promiseChain.then(() => {
-      let armors: Record<string, { ap: number; locations: string[] }> = {}
+      let armors: Record<string, { ap: number; locations: string[]; enc: number }> = {}
       skollEnemy.hit_locations.forEach((hitLocation: any) => {
         let type = 'hitLocation'
 
@@ -264,10 +264,13 @@ export class EncounterGeneratorActorBuilder {
         }
 
         if (hitLocation.armor && hitLocation.armor !== '') {
-          if (!armors[hitLocation.armor]) {
-            armors[hitLocation.armor] = { ap: hitLocation.ap, locations: [] }
+          // Use name and AP as the key to separate different armor types
+          let armorKey = hitLocation.armor + '|' + hitLocation.ap
+          if (!armors[armorKey]) {
+            armors[armorKey] = { ap: hitLocation.ap, locations: [], enc: 0 }
           }
-          armors[hitLocation.armor].locations.push(name)
+          armors[armorKey].locations.push(name)
+          armors[armorKey].enc += Number(hitLocation.enc || 0)
         } else if (hitLocation.ap > 0) {
           data.naturalArmor = hitLocation.ap
         }
@@ -280,13 +283,15 @@ export class EncounterGeneratorActorBuilder {
       })
 
       // Create armor items
-      Object.entries(armors).forEach(([armorName, armorData]) => {
+      Object.entries(armors).forEach(([armorKey, armorData]) => {
+        let armorName = armorKey.split('|')[0]
         actorItems.push({
           name: armorName,
           type: 'armor',
           system: {
             ap: armorData.ap,
             locationName: armorData.locations,
+            encumbrance: armorData.enc,
             equipped: true
           }
         })

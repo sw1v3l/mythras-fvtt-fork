@@ -376,10 +376,13 @@ async function createActor(skollEnemy, folder) {
       }
 
       if (hitLocation.armor && hitLocation.armor !== '') {
-        if (!armors[hitLocation.armor]) {
-          armors[hitLocation.armor] = { ap: hitLocation.ap, locations: [] }
+        // Use name and AP as the key to separate different armor types
+        let armorKey = hitLocation.armor + '|' + hitLocation.ap
+        if (!armors[armorKey]) {
+          armors[armorKey] = { ap: hitLocation.ap, locations: [], enc: 0 }
         }
-        armors[hitLocation.armor].locations.push(name)
+        armors[armorKey].locations.push(name)
+        armors[armorKey].enc += Number(hitLocation.enc || 0)
       } else if (hitLocation.ap > 0) {
         data.naturalArmor = hitLocation.ap
       }
@@ -392,13 +395,15 @@ async function createActor(skollEnemy, folder) {
     })
 
     // Create armor items
-    Object.entries(armors).forEach(([armorName, armorData]) => {
+    Object.entries(armors).forEach(([armorKey, armorData]) => {
+      let armorName = armorKey.split('|')[0]
       actorItems.push({
         name: armorName,
         type: 'armor',
         system: {
           ap: armorData.ap,
           locationName: armorData.locations,
+          encumbrance: armorData.enc,
           equipped: true
         }
       })
